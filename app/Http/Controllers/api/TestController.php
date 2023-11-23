@@ -14,8 +14,8 @@ class TestController extends Controller
         //Log::info($request->all());
 // Log::info($data['userId']['space']);
         $data =  $request->all();
-        Log::info($data['userId']['user']);
-        Log::info($data['userId']['user']['email']);
+        Log::info($data['user']['user']);
+        Log::info($data['user']['user']['email']);
 
         // $user = new User();
         // $user->name = $data['userId']['user']['displayName'];
@@ -28,14 +28,14 @@ class TestController extends Controller
 
 
         User::updateOrCreate([
-            'email' => $data['userId']['user']['email']
+            'email' => $data['user']['user']['email']
         ],[
-            "name" => $data['userId']['user']['displayName'],
-            "email" => $data['userId']['user']['email'],
-            "avatar" => $data['userId']['user']['avatarUrl'],
+            "name" => $data['user']['user']['displayName'],
+            "email" => $data['user']['user']['email'],
+            "avatar" => $data['user']['user']['avatarUrl'],
             "email_verified_at" => now(),
-            "spaces" => $data['userId']['space']['name'],
-            "user_id_chat" => $data['userId']['user']['name'],
+            "spaces" => $data['user']['space']['name'],
+            "user_id_chat" => $data['user']['user']['name'],
         ]);
        
         return 'test';
