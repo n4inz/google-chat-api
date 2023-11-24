@@ -24,4 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/webhook' , [TestController::class , 'index']);
 Route::post('/categorys' , [Categorys::class , 'index']);
 Route::post('/task' , [CreateTask::class , 'index']);
+Route::post('/create-category' , [CreateTask::class , 'category']);
+
 

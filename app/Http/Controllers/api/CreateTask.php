@@ -16,11 +16,7 @@ class CreateTask extends Controller
         $data =  $request->all();
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
-
-        if($data['category_id']){
-            $this->category($request);
-        }
-
+        
 
         if($user){
             Tasks::updateOrCreate([
@@ -33,12 +29,12 @@ class CreateTask extends Controller
     }
 
 
-    private static function category($request)
+    public function category(Request $request)
     {
         $data =  $request->all();
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
-        $category = Category::where('id', $data['category_id'])->first();
+        $category = Category::where('name', $data['category'])->first();
 
         if($user){
             Tasks::updateOrCreate([
