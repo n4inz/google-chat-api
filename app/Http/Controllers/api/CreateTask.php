@@ -58,6 +58,7 @@ class CreateTask extends Controller
                 'user_id' => $user->id
             ],[
                 'priority' => $data['priority'],
+                'ticket' => $data['ticket'],
             ]);
         }
     }
