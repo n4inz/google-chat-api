@@ -16,6 +16,7 @@ class Task extends JsonResource
     {
         return [
             'ticket' => $this->ticket,
+            'task_name' => $this->task_name,
             'category_name' => $this->category_name,
             'priority' => $this->priority
         ];
