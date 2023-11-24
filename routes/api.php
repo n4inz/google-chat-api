@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\Categorys;
+use App\Http\Controllers\api\CreateTask;
 use App\Http\Controllers\api\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/webhook' , [TestController::class , 'index']);
 Route::post('/categorys' , [Categorys::class , 'index']);
+Route::post('/task' , [CreateTask::class , 'index']);
+
