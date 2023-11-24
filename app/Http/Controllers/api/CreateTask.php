@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Task;
 use App\Models\Category;
 use App\Models\Tasks;
 use App\Models\User;
@@ -54,12 +55,14 @@ class CreateTask extends Controller
         
 
         if($user){
-            Tasks::updateOrCreate([
+          $task =  Tasks::updateOrCreate([
                 'user_id' => $user->id
             ],[
                 'priority' => $data['priority'],
                 'ticket' => $data['ticket'],
             ]);
         }
+
+        return new Task($task);
     }
 }
