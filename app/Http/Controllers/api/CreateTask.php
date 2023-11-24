@@ -45,4 +45,20 @@ class CreateTask extends Controller
             ]);
         }
     }
+
+    public function priority(Request $request)
+    {
+        $data =  $request->all();
+        $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
+
+        
+
+        if($user){
+            Tasks::updateOrCreate([
+                'user_id' => $user->id
+            ],[
+                'priority' => $data['priority'],
+            ]);
+        }
+    }
 }
