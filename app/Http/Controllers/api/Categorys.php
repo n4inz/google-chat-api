@@ -14,10 +14,10 @@ class Categorys extends Controller
     
     public function index(Request $request)
     {
-        // ->whereHas('type_users.categorie_id', function ($queryJob) {
-        //     $queryJob->where('categorie_id', 1);
-        // })->get()
-        return User::query()->with('type_users')->get();
+       
+        return User::query()->with('type_users') ->whereHas('type_users.categorie_id', function ($queryJob) {
+            $queryJob->where('categorie_id', 1);
+        })->get();
         $data = Category::query()->orderBy('id' , 'desc')->get();
         // return 'testing';
         return ResourcesCategory::collection($data);
