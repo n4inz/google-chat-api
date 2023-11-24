@@ -14,7 +14,7 @@ class Categorys extends Controller
     public function index(Request $request)
     {
         $data = Category::query()->orderBy('id' , 'desc')->get();
-
+        // return 'testing';
         return ResourcesCategory::collection($data);
     }
 }
