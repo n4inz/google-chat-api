@@ -38,7 +38,7 @@ class CreateTask extends Controller
         $data =  $request->all();
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
-        $category = Category::where('name', $data['category_id'])->first();
+        $category = Category::where('id', $data['category_id'])->first();
 
         if($user){
             Tasks::updateOrCreate([
