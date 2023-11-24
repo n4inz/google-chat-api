@@ -17,7 +17,7 @@ class CreateTask extends Controller
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
 
-        if($data['category_id'] ?? false){
+        if($data['category_id']){
             $this->category($request);
         }
 
