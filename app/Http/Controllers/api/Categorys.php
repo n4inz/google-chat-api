@@ -15,9 +15,6 @@ class Categorys extends Controller
     public function index(Request $request)
     {
        
-        return User::query()->with('type_users') ->whereHas('type_users', function ($queryJob) {
-            $queryJob->where('categorie_id', 2);
-        })->get();
         $data = Category::query()->orderBy('id' , 'desc')->get();
         // return 'testing';
         return ResourcesCategory::collection($data);

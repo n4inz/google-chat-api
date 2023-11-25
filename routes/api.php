@@ -26,5 +26,7 @@ Route::post('/categorys' , [Categorys::class , 'index']);
 Route::post('/task' , [CreateTask::class , 'index']);
 Route::post('/create-category' , [CreateTask::class , 'category']);
 Route::post('/priority' , [CreateTask::class , 'priority']);
+Route::post('/choese-status' , [CreateTask::class , 'choeseStatus']);
+
 
 
