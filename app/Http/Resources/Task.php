@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\TypeUser;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Task extends JsonResource
@@ -15,7 +16,9 @@ class Task extends JsonResource
      */
     public function toArray($request)
     {
-        TypeUser::where('categorie_id' , $this->categorie_id)->with('user')->get();
+        User::query()->with('type_users') ->whereHas('type_users', function ($queryJob) {
+            $queryJob->where('categorie_id', $this->ticket);
+        })->get();
         return [
             'ticket' => $this->ticket,
             'task_name' => $this->task_name,
