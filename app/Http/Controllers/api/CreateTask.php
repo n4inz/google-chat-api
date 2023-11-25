@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CreateTask extends Controller
 {
@@ -63,5 +64,12 @@ class CreateTask extends Controller
         }
 
         return new Task($task);
+    }
+
+    public function choeseStatus(Request $request)
+    {
+        $data =  $request->all();
+
+        Log::info($data);
     }
 }
