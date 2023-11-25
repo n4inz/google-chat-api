@@ -16,7 +16,7 @@ class Categorys extends Controller
     {
        
         return User::query()->with('type_users') ->whereHas('type_users', function ($queryJob) {
-            $queryJob->where('categorie_id', 2);
+            $queryJob->where('categorie_id', 1);
         })->get();
         $data = Category::query()->orderBy('id' , 'desc')->get();
         // return 'testing';
