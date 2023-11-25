@@ -99,6 +99,7 @@ class UserController extends Controller
             TypeUser::create([
                 'user_id' => $id,
                 'categorie_id' => $request->input('categories'),
+                'name' => null,
                 // Add more fields as needed
             ]);
         }
