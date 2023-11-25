@@ -25,6 +25,8 @@ class Task extends JsonResource
             'task_name' => $this->task_name,
             'category_name' => $this->category_name,
             'priority' => $this->priority,
+            'status' => $this->status,
+            'user_create' => new ResourcesUser($this->user),
             'user' => $user ? ResourcesUser::collection($user) : null
         ];
     }

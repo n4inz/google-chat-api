@@ -43,7 +43,8 @@ class CreateTask extends Controller
                 'user_id' => $user->id
             ],[
                 'category_name' => $category->name,
-                'categorie_id' => $category->id
+                'categorie_id' => $category->id,
+                'status' => null
             ]);
         }
     }
@@ -70,6 +71,17 @@ class CreateTask extends Controller
     {
         $data =  $request->all();
 
-        Log::info($data);
+        $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
+
+        
+        if($user){
+          $task =  Tasks::updateOrCreate([
+                'user_id' => $user->id
+            ],[
+                'status' => (int) $data['status'],
+            ]);
+        }
+
+        return new Task($task);
     }
 }
