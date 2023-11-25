@@ -7,6 +7,7 @@ use App\Http\Resources\Task;
 use App\Models\Category;
 use App\Models\Tasks;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -71,17 +72,17 @@ class CreateTask extends Controller
     {
         $data =  $request->all();
 
-        $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
-
+        // $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
+        Log::info($data['cardsV2']);
         
-        if($user){
-          $task =  Tasks::updateOrCreate([
-                'user_id' => $user->id
-            ],[
-                'status' => (int) $data['status'],
-            ]);
-        }
+        // if($user){
+        //   $task =  Tasks::updateOrCreate([
+        //         'user_id' => $user->id
+        //     ],[
+        //         'status' => (int) $data['status'],
+        //     ]);
+        // }
 
-        return new Task($task);
+        // return new Task($task);
     }
 }
