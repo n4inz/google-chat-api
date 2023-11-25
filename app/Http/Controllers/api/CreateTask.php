@@ -50,19 +50,17 @@ class CreateTask extends Controller
     public function priority(Request $request)
     {
         $data =  $request->all();
-        // $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
+        $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
         
-        // if($user){
-        //   $task =  Tasks::updateOrCreate([
-        //         'user_id' => $user->id
-        //     ],[
-        //         'priority' => $data['priority'],
-        //         'ticket' => $data['ticket'],
-        //     ]);
-        // }
-
-        $task = Tasks::where('id', 1)->first();
+        if($user){
+          $task =  Tasks::updateOrCreate([
+                'user_id' => $user->id
+            ],[
+                'priority' => $data['priority'],
+                'ticket' => $data['ticket'],
+            ]);
+        }
 
         return new Task($task);
     }
