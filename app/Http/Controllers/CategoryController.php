@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\TypeUser;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +15,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with('categories')->get()->toQuery()->paginate(10);
-        // $users = User::latest()->get()->toQuery()->paginate(20);
+        $data = Category::orderBy('id', 'desc')->paginate(10); // Adjust the number of items per page as needed
+        return view('category.index', compact('data'));
 
-
-        return view('user.index', compact('users'));
     }
 
     /**
@@ -32,6 +28,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('category.add');
     }
 
     /**
@@ -43,6 +40,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $category = Category::create([
+            'name' => $request->input('name'),
+            // Add more fields as needed
+        ]);
+
+        return redirect()->route('category')
+            ->with('success', 'Category added successfully');
     }
 
     /**
@@ -65,10 +69,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $data = User::find($id);
-
-        $categories = Category::all();
-        return view('user.edit', compact('data', 'categories'));
+        $category = Category::findOrFail($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -81,13 +83,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $data = TypeUser::where('user_id', $id);
-        $data->update([
-            'categorie_id' => $request->input('categories'),
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request->input('name'),
             // Add more fields as needed
         ]);
 
-        return redirect()->route('user')
+        return redirect()->route('category')
             ->with('success', 'Category updated successfully');
     }
 
@@ -100,5 +102,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('category')
+            ->with('success', 'Category deleted successfully');
     }
 }
