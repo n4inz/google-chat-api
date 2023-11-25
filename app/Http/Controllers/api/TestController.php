@@ -14,8 +14,8 @@ class TestController extends Controller
         //Log::info($request->all());
 // Log::info($data['userId']['space']);
         $data =  $request->all();
-        Log::info($data['user']['user']);
-        Log::info($data['user']['user']['email']);
+        // Log::info($data['user']['user']);
+        // Log::info($data['user']['user']['email']);
 
         // $user = new User();
         // $user->name = $data['userId']['user']['displayName'];
