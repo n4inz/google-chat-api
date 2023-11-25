@@ -18,14 +18,14 @@ class Task extends JsonResource
     public function toArray($request)
     {
         $user = User::select('id', 'name' , 'spaces')->query()->with('type_users') ->whereHas('type_users', function ($queryJob) {
-            $queryJob->where('categorie_id', $this->ticket);
+            $queryJob->where('categorie_id', $this->categorie_id);
         })->get();
         return [
             'ticket' => $this->ticket,
             'task_name' => $this->task_name,
             'category_name' => $this->category_name,
             'priority' => $this->priority,
-            'user' => ResourcesUser::collection($user)
+            'user' => $user ? ResourcesUser::collection($user) : null
         ];
     }
 }
