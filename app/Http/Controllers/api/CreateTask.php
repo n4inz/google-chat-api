@@ -72,18 +72,18 @@ class CreateTask extends Controller
     {
         $data =  $request->all();
 
-        // $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
+        $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
         // Log::info($data['user']['action']);
         Log::info($data['user']['message']['cardsV2'][0]['cardId']);
         
-        // if($user){
-        //   $task =  Tasks::updateOrCreate([
-        //         'user_id' => $user->id
-        //     ],[
-        //         'status' => (int) $data['status'],
-        //     ]);
-        // }
+        if($user){
+          $task =  Tasks::updateOrCreate([
+                'user_id' => $user->id
+            ],[
+                'status' => (int) $data['status'],
+            ]);
+        }
 
-        // return new Task($task);
+        return new Task($task);
     }
 }
