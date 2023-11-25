@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\TypeUser;
 use App\Models\Category;
+use App\Models\TypeUser;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -80,11 +80,28 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $data = TypeUser::where('user_id', $id);
-        $data->update([
-            'categorie_id' => $request->input('categories'),
-            // Add more fields as needed
-        ]);
+        // $data = TypeUser::findOrFail('user_id', $id);
+        // if($data){
+        //     $type_usesr =  TypeUser::updateOrCreate([
+        //         'categorie_id' => $request->input('categories')
+        //       ],[
+        //           'user_id' => $id,
+        //           'categorie_id' => $request->input('categories'),
+        //       ]);
+        //   }
+        $data = TypeUser::where('user_id', $id)->first();
+        if ($data) {
+            $data->update([
+                'categorie_id' => $request->input('categories'),
+                // Add more fields as needed
+            ]);
+        } else {
+            TypeUser::create([
+                'user_id' => $id,
+                'categorie_id' => $request->input('categories'),
+                // Add more fields as needed
+            ]);
+        }
 
         return redirect()->route('user')
             ->with('success', 'Category updated successfully');
