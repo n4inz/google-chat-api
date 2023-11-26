@@ -85,8 +85,8 @@ class CreateTask extends Controller
             ],[
                 'status' => (int) $data['status'],
             ]);
+            return new Task($task);
         }
 
-        return new Task($task);
     }
 }
