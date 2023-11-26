@@ -90,16 +90,22 @@ class UserController extends Controller
         //       ]);
         //   }
         $data = TypeUser::where('user_id', $id)->first();
+
+        $category_id = $request->input('categories');
+        $category = Category::find($category_id)->first();
+
         if ($data) {
+
             $data->update([
                 'categorie_id' => $request->input('categories'),
+                'name' => $category->name,
                 // Add more fields as needed
             ]);
         } else {
             TypeUser::create([
                 'user_id' => $id,
-                'categorie_id' => $request->input('categories'),
-                'name' => null,
+                'categorie_id' => $category_id,
+                'name' => $category->name,
                 // Add more fields as needed
             ]);
         }
