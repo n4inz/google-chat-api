@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\Categorys;
 use App\Http\Controllers\api\CreateTask;
 use App\Http\Controllers\api\TestController;
+use App\Http\Controllers\api\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,12 @@ Route::post('/task' , [CreateTask::class , 'index']);
 Route::post('/create-category' , [CreateTask::class , 'category']);
 Route::post('/priority' , [CreateTask::class , 'priority']);
 Route::post('/choese-status' , [CreateTask::class , 'choeseStatus']);
+
+Route::get('/users' , [Users::class , 'index']);
+Route::get('/categorys' , [Categorys::class , 'index']);
+Route::get('/category_owners' , [Users::class , 'owners']);
+Route::get('/category_owner/{id}' , [Users::class , 'show']);
+
 
 
 

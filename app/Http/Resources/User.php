@@ -16,7 +16,8 @@ class User extends JsonResource
     {
         return [
             'name' => $this->name,
-            'spaces' => $this->spaces
+            'spaces' => $this->spaces,
+            'category' => $this->category ? $this->category->name : null,
         ];
     }
 }

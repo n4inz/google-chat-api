@@ -19,4 +19,5 @@ class Categorys extends Controller
         // return 'testing';
         return ResourcesCategory::collection($data);
     }
+
 }
