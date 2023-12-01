@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\admin\BoardController;
 use App\Http\Controllers\api\Categorys;
 use App\Http\Controllers\api\CreateTask;
 use App\Http\Controllers\api\TestController;
@@ -22,6 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// Chat bot
+
 Route::post('/webhook' , [TestController::class , 'index']);
 Route::post('/categorys' , [Categorys::class , 'index']);
 Route::post('/task' , [CreateTask::class , 'index']);
@@ -35,5 +39,10 @@ Route::get('/category_owners' , [Users::class , 'owners']);
 Route::get('/category_owner/{id}' , [Users::class , 'show']);
 
 
+
+// Admin
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/board' , [BoardController::class, 'index']);
+});
 
 
