@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class Users extends Controller
 {
@@ -40,7 +41,25 @@ class Users extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status['status'] = false;
+        $status['message'] = "";
+
+        $request->validate([
+            'name' => 'required',
+            'owners' => 'required'
+        ]);
+        $category = Category::create([
+            'name' => $request->name
+        ]);
+        TypeUser::create([
+            'user_id' => $request->owners,
+            'categorie_id' => $category->id,
+            'name' => $request->name
+        ]);
+
+
+       
+        return response()->json($status); 
     }
 
     /**
@@ -53,12 +72,12 @@ class Users extends Controller
     {
         //
         //
-        $typeuser = TypeUser::find($id);
+        $typeuser = TypeUser::with(['category' , 'user'])->find($id);
 
-        $user = User::find($typeuser->user_id);
-        $category = Category::find($typeuser->categorie_id);
+        // $user = User::find($typeuser->user_id);
+        // $category = Category::find($typeuser->categorie_id);
 
-        return response()->json(['user'=>$user, 'category'=>$category]);
+        return response()->json(['typeuser' => $typeuser]);
     }
 
     /**
@@ -68,19 +87,49 @@ class Users extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $status['status'] = false;
+        $status['message'] = "";
+        $status['data'] = "";
+
+        $request->validate([
+            'name' => 'required',
+            'owners' => 'required'
+        ]);
+
+
+        $typeUser = TypeUser::with(['category' , 'user'])->find($id);
+
+        $category = Category::find($typeUser->categorie_id);
+        
+        $category->name = $request->name;
+        $category->save();
+
+        $typeUser->user_id = $request->owners;
+        $typeUser->categorie_id = $category->id;
+        $typeUser->save();
+
+
+        $status['status'] = true;
+        $status['message'] = "Success";
+        $status['data'] = $typeUser;
+        return response()->json($status); 
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function delete(Request $request ,$id)
     {
-        //
+        $status['status'] = false;
+        $status['message'] = "";
+        $typeUser = TypeUser::find($id);
+
+        Category::where('id' , $typeUser->categorie_id)->delete();
+
+        $typeUser->delete();
+
+        $status['status'] = true;
+        $status['message'] = "Success";
+        return response()->json($status); 
     }
 }

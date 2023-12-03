@@ -37,6 +37,11 @@ Route::get('/users' , [Users::class , 'index']);
 Route::get('/categorys' , [Categorys::class , 'index']);
 Route::get('/category_owners' , [Users::class , 'owners']);
 Route::get('/category_owner/{id}' , [Users::class , 'show']);
+Route::post('/save-owner' , [Users::class , 'store']);
+Route::delete('/delete/{id}' , [Users::class , 'delete']);
+Route::put('/edit/{id}' , [Users::class , 'update']);
+
+
 
 
 
