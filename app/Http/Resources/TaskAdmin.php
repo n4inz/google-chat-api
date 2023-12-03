@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\User as ResourcesUser;
+use Carbon\Carbon;
 
 class TaskAdmin extends JsonResource
 {
@@ -15,6 +16,7 @@ class TaskAdmin extends JsonResource
      */
     public function toArray($request)
     {
+        $now = Carbon::now();
         return [
             'id' => $this->id,
             'ticket' => $this->ticket,
@@ -23,7 +25,8 @@ class TaskAdmin extends JsonResource
             'priority' => $this->priority,
             'status' => $this->status,
             'user_create' => new ResourcesUser($this->user),
-            'created_at' => $this->created_at
+            'created_at' => Carbon::parse($this->created_at)->format('d M Y'),
+            'days' => $now->diffInDays($this->created_at). ' Days'
         ];
     }
 }

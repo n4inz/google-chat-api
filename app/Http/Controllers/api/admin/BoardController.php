@@ -11,7 +11,7 @@ class BoardController extends Controller
 {
    public function index(Request $request)
    {
-       $task =  Tasks::query()->get();
+       $task =  Tasks::query()->whereNotNull('priority')->get();
 
        return TaskAdmin::collection($task);
    } 
