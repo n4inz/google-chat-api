@@ -5,6 +5,7 @@ use App\Http\Controllers\api\Categorys;
 use App\Http\Controllers\api\CreateTask;
 use App\Http\Controllers\api\TestController;
 use App\Http\Controllers\api\Users;
+use App\Http\Controllers\api\auth\GoogleLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,9 @@ Route::delete('/delete/{id}' , [Users::class , 'delete']);
 Route::put('/edit/{id}' , [Users::class , 'update']);
 Route::get('/board' , [BoardController::class, 'index']);
 
+
+Route::post('/auth/google', [GoogleLoginController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
 
 
 
