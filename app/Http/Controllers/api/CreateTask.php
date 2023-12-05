@@ -26,7 +26,8 @@ class CreateTask extends Controller
                 'user_id' => $user->id
             ],[
                 'user_id' => $user->id,
-                'task_name' => $data['task']
+                'task_name' => $data['task'],
+                'created_at' => now();
             ]);
         }
     }
