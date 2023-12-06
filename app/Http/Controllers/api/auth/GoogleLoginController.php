@@ -26,6 +26,10 @@ class GoogleLoginController extends Controller
                 'token' => $token->plainTextToken,
                 'user' => new UserPublic($user)
             ]);
+        }else{
+            return response()->json([
+                'status' => 'Login Failed',
+            ]);
         }
 
         return response()->json($response);
