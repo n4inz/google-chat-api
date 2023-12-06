@@ -41,9 +41,11 @@ Route::get('/category_owner/{id}' , [Users::class , 'show']);
 Route::post('/save-owner' , [Users::class , 'store']);
 Route::delete('/delete/{id}' , [Users::class , 'delete']);
 Route::put('/edit/{id}' , [Users::class , 'update']);
-Route::get('/board' , [BoardController::class, 'index']);
+// Route::middleware('auth:sanctum')->get('/board' , [BoardController::class, 'index']);
 
 
+
+Route::post('/auth/token', [GoogleLoginController::class, 'generateToken']);
 Route::post('/auth/google', [GoogleLoginController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
 

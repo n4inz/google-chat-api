@@ -3,12 +3,33 @@
 namespace App\Http\Controllers\api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as ResourcesUser;
+use App\Http\Resources\UserPublic;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class GoogleLoginController extends Controller
 {
     //
+
+    public function generateToken(Request $request)
+    {
+        $response['status'] = false;
+        $response['messegae'] = "";
+
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+
+        if($user){
+            $token = $user->createToken('myAppToken');
+            return response()->json([
+                'token' => $token->plainTextToken,
+                'user' => new UserPublic($user)
+            ]);
+        }
+
+        return response()->json($response);
+    }
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->stateless()->redirect();
