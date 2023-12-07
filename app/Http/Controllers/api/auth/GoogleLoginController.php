@@ -7,6 +7,7 @@ use App\Http\Resources\User as ResourcesUser;
 use App\Http\Resources\UserPublic;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\TypeUser;
 
 class GoogleLoginController extends Controller
 {
@@ -19,8 +20,9 @@ class GoogleLoginController extends Controller
 
         $email = $request->email;
         $user = User::where('email', $email)->first();
+        $typeuser = TypeUser::where('user_id', $user->id)->first();
 
-        if($user){
+        if($typeuser){
             $token = $user->createToken('myAppToken');
             return response()->json([
                 'token' => $token->plainTextToken,
