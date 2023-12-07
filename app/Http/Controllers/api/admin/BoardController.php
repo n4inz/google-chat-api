@@ -16,4 +16,18 @@ class BoardController extends Controller
 
        return TaskAdmin::collection($task);
    } 
+
+   public function taskCount(Request $request)
+   {
+
+        $taskOpen =  Tasks::where('status', null)->count();
+        $taskProgress =  Tasks::where('status', 1)->count();
+        $taskResolved =  Tasks::where('status', 2)->count();
+
+        return response()->json([
+         'open' => $taskOpen,
+         'on_progress' => $taskProgress,
+         'resolved' => $taskResolved,
+     ]);
+   } 
 }

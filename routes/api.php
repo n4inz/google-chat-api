@@ -42,6 +42,7 @@ Route::post('/save-owner' , [Users::class , 'store']);
 Route::delete('/delete/{id}' , [Users::class , 'delete']);
 Route::put('/edit/{id}' , [Users::class , 'update']);
 Route::get('/board' , [BoardController::class, 'index']);
+Route::get('/task-count' , [BoardController::class, 'taskCount']);
 // Route::middleware('auth:sanctum')->get('/board' , [BoardController::class, 'index']);
 
 
