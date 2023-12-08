@@ -20,19 +20,27 @@ class GoogleLoginController extends Controller
 
         $email = $request->email;
         $user = User::where('email', $email)->first();
-        $typeuser = TypeUser::where('user_id', $user->id)->first();
-
-        if($typeuser){
-            $token = $user->createToken('myAppToken');
-            return response()->json([
-                'token' => $token->plainTextToken,
-                'user' => new UserPublic($user)
-            ]);
+        if($user){
+            $typeuser = TypeUser::where('user_id', $user->id)->first();
+            if($typeuser){
+                $token = $user->createToken('myAppToken');
+                return response()->json([
+                    'token' => $token->plainTextToken,
+                    'user' => new UserPublic($user)
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 'Login Failed',
+                ]);
+            }
         }else{
             return response()->json([
                 'status' => 'Login Failed',
             ]);
         }
+        
+
+
 
         return response()->json($response);
     }
