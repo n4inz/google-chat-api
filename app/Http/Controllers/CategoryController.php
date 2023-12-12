@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\TypeUser;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -88,6 +89,12 @@ class CategoryController extends Controller
             'name' => $request->input('name'),
             // Add more fields as needed
         ]);
+        $typeuser = TypeUser::where('categorie_id', $category->id)->first();
+        $typeuser->update([
+            'name' => $category->name,
+            // Add more fields as needed
+        ]);
+        
 
         return redirect()->route('category')
             ->with('success', 'Category updated successfully');
