@@ -91,7 +91,7 @@ class CategoryController extends Controller
         ]);
         $typeuser = TypeUser::where('categorie_id', $id)->first();
         $typeuser->update([
-            'name' => $category->id,
+            'name' => $request->input('name'),
             // Add more fields as needed
         ]);
         
