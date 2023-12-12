@@ -89,12 +89,6 @@ class CategoryController extends Controller
             'name' => $request->input('name'),
             // Add more fields as needed
         ]);
-        $typeuser = TypeUser::where('categorie_id', $id)->first();
-        $typeuser->update([
-            'name' => $request->input('name'),
-            // Add more fields as needed
-        ]);
-        
 
         return redirect()->route('category')
             ->with('success', 'Category updated successfully');

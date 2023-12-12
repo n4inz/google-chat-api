@@ -108,6 +108,7 @@ class Users extends Controller
 
         $typeUser->user_id = $request->owners;
         $typeUser->categorie_id = $category->id;
+        $typeUser->name = $request->name;
         $typeUser->save();
 
 
