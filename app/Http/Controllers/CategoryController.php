@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\TypeUser;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -86,6 +87,11 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update([
             'name' => $request->input('name'),
+            // Add more fields as needed
+        ]);
+        $typeuser = TypeUser::where('categorie_id', $id)->first();
+        $typeuser->update([
+            'name' => $category->id,
             // Add more fields as needed
         ]);
         
