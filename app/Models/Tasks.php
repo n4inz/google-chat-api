@@ -13,7 +13,7 @@ class Tasks extends Model
     const start_working = 1;
     const solved = 2;
     const reject = 3;
-    protected $guarded = ['id'];
+    // protected $guarded = ['id'];
 
 
     public function user()
