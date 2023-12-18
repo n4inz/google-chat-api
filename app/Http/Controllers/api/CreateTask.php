@@ -15,7 +15,8 @@ class CreateTask extends Controller
 
     public function index(Request $request)
     {
-        $data = $request->all();
+        $jsonString = $request->getContent();
+        $data = json_decode($jsonString, true);
         
         $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
 
