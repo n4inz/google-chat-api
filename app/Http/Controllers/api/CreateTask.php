@@ -27,8 +27,8 @@ class CreateTask extends Controller
             //     'created_at' => now()
             // ]);
             $task = Tasks::create([
-                'user_id' => $user->id,
-                'task_name' => $data['task'],
+                'user_id' => $data->user_id,
+                'task_name' => $data->task_name,
                 'created_at' => now(),
             ]);
             return response()->json([
