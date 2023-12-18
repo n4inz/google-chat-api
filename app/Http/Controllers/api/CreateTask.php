@@ -48,10 +48,10 @@ class CreateTask extends Controller
         // $user = User::where('email', $data['email'] ?? 0)->first('id');
 
         $category = Category::where('name', $data['category'])->first();
-        $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
+        // $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
         if ($user) {
             $task = Tasks::updateOrCreate([
-                'id' => (int) $cardId,
+                'ticket' => $data['ticket'],
                 'user_id' => $user->id,
             ], [
                 
@@ -72,14 +72,14 @@ class CreateTask extends Controller
         $data = $request->all();
         $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
 
-        $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
+        // $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
 
         if ($user) {
             $task = Tasks::updateOrCreate([
-                'id' => (int) $cardId,
+                'ticket' => $data['ticket'],
             ], [
                 'priority' => $data['priority'],
-                'ticket' => $data['ticket'],
+                
             ]);
         }
 

@@ -21,6 +21,7 @@ class Task extends JsonResource
             $queryJob->where('categorie_id', $this->categorie_id);
         })->get();
         return [
+            'id' => $this->id,
             'ticket' => $this->ticket,
             'task_name' => $this->task_name,
             'category_name' => $this->category_name,
