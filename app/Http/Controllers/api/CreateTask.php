@@ -27,9 +27,9 @@ class CreateTask extends Controller
             //     'created_at' => now()
             // ]);
             $task = Tasks::create([
-                'user_id' => $data['user_id'],
-                'task_name' => $data['task_name'],
-                'created_at' => now(),
+                'user_id' => $user->id,
+                'task_name' => $data['task'],
+                'created_at' => now()
             ]);
             return response()->json([
                 'id' => $task->id,
@@ -43,16 +43,18 @@ class CreateTask extends Controller
         $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
 
         $category = Category::where('name', $data['category'])->first();
-
+        $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
         if ($user) {
-            Tasks::updateOrCreate([
-                'user_id' => $user->id,
+            $task = Tasks::updateOrCreate([
+                'id' => $cardId,
             ], [
                 'category_name' => $category->name,
                 'categorie_id' => $category->id,
                 'status' => 0,
             ]);
-            return new Task($task);
+            return response()->json([
+                'id' => $task->id,
+            ], 200);
         }
     }
 
