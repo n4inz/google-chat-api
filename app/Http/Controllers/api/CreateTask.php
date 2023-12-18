@@ -31,8 +31,10 @@ class CreateTask extends Controller
                 'task_name' => $data['task'],
                 'created_at' => now()
             ]);
-            return response()->json([
+            return response()->json(['data':{[
                 'id' => $task->id,
+            ]}
+                
             ], 200);
         }
     }
@@ -52,9 +54,9 @@ class CreateTask extends Controller
                 'categorie_id' => $category->id,
                 'status' => 0,
             ]);
-            return response()->json([
+            return response()->json(['data':{[
                 'id' => $task->id,
-            ], 200);
+            ]}
         }
     }
 
