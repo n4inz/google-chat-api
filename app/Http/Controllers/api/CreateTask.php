@@ -20,18 +20,18 @@ class CreateTask extends Controller
         $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
 
         if ($user) {
-            // Tasks::updateOrCreate([
-            //     'user_id' => $user->id
-            // ],[
-            //     'user_id' => $user->id,
-            //     'task_name' => $data['task'],
-            //     'created_at' => now()
-            // ]);
-            $task = Tasks::create([
+            $task = Tasks::updateOrCreate([
+                'id' => $data['id'],
+            ],[
                 'user_id' => $user->id,
                 'task_name' => $data['task'],
                 'created_at' => now()
             ]);
+            // $task = Tasks::create([
+            //     'user_id' => $user->id,
+            //     'task_name' => $data['task'],
+            //     'created_at' => now()
+            // ]);
             return response()->json([
                 'id' => $task->id,
             ], 200);
