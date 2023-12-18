@@ -16,6 +16,7 @@ class CreateTask extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+        
         $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
 
         if ($user) {
@@ -39,8 +40,10 @@ class CreateTask extends Controller
 
     public function category(Request $request)
     {
-        $data = $request->all();
-        // $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
+        $jsonString = $request->getContent();
+        $data = json_decode($jsonString, true);
+        // $data = json_decode($request->all(), true);
+        // // $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
         $user = User::where('email', $data['email'] ?? 0)->first('id');
 
         $category = Category::where('name', $data['category'])->first();
@@ -48,7 +51,9 @@ class CreateTask extends Controller
         if ($user) {
             $task = Tasks::updateOrCreate([
                 'id' => $data['id'],
+                'user_id' => $user->id,
             ], [
+                
                 'category_name' => $category->name,
                 'categorie_id' => $category->id,
                 'status' => 0,
@@ -57,6 +62,8 @@ class CreateTask extends Controller
                 'id' => $task->id,
             ], 200);
         }
+
+    
     }
 
     public function priority(Request $request)

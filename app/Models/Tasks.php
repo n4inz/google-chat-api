@@ -14,7 +14,10 @@ class Tasks extends Model
     const solved = 2;
     const reject = 3;
     // protected $guarded = ['id'];
-
+    protected $fillable = [
+        'id',
+        'user_id',
+    ];
 
     public function user()
     {
