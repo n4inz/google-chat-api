@@ -22,13 +22,20 @@ class CreateTask extends Controller
         
 
         if($user){
-            Tasks::updateOrCreate([
-                'user_id' => $user->id
-            ],[
+            // Tasks::updateOrCreate([
+            //     'user_id' => $user->id
+            // ],[
+            //     'user_id' => $user->id,
+            //     'task_name' => $data['task'],
+            //     'created_at' => now()
+            // ]);
+            $task = Tasks::create([
                 'user_id' => $user->id,
                 'task_name' => $data['task'],
                 'created_at' => now()
             ]);
+
+            return new Task($task);
         }
     }
 
@@ -46,7 +53,7 @@ class CreateTask extends Controller
             ],[
                 'category_name' => $category->name,
                 'categorie_id' => $category->id,
-                'status' => null
+                'status' => 0
             ]);
         }
     }
@@ -56,10 +63,11 @@ class CreateTask extends Controller
         $data =  $request->all();
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
 
-        
+        $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
+
         if($user){
           $task =  Tasks::updateOrCreate([
-                'user_id' => $user->id
+                'id' => $cardId
             ],[
                 'priority' => $data['priority'],
                 'ticket' => $data['ticket'],
@@ -75,8 +83,8 @@ class CreateTask extends Controller
 
         $user = User::where('email' , $data['user']['user']['email'] ?? 0)->first('id');
         Log::info($data['user']);
-        // $code = $data['user']['message']['cardsV2'][0]['card']['header']['title'];
-        $code = $data['user']['message']['cards'][0]['header']['title'];
+        $code = $data['user']['message']['cardsV2'][0]['card']['header']['title'];
+        // $code = $data['user']['message']['cards'][0]['header']['title'];
 
         $parts = explode("#", $code);
         
