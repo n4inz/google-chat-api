@@ -43,11 +43,11 @@ class CreateTask extends Controller
         $jsonString = $request->getContent();
         $data = json_decode($jsonString, true);
         // $data = json_decode($request->all(), true);
-        // // $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
-        $user = User::where('email', $data['email'] ?? 0)->first('id');
+        $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
+        // $user = User::where('email', $data['email'] ?? 0)->first('id');
 
         $category = Category::where('name', $data['category'])->first();
-        // $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
+        $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
         if ($user) {
             $task = Tasks::updateOrCreate([
                 'id' => $data['id'],
