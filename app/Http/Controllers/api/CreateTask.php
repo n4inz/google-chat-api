@@ -34,7 +34,6 @@ class CreateTask extends Controller
                 'task_name' => $data['task'],
                 'created_at' => now()
             ]);
-
             return new Task($task);
         }
     }
@@ -55,6 +54,7 @@ class CreateTask extends Controller
                 'categorie_id' => $category->id,
                 'status' => 0
             ]);
+            return new Task($task);
         }
     }
 
