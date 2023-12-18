@@ -20,7 +20,7 @@ class BoardController extends Controller
    public function taskCount(Request $request)
    {
 
-        $taskOpen =  Tasks::where('status', null)->count();
+        $taskOpen =  Tasks::where('status', 0)->count();
         $taskProgress =  Tasks::where('status', 1)->count();
         $taskResolved =  Tasks::where('status', 2)->count();
 
