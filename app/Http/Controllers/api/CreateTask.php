@@ -51,7 +51,7 @@ class CreateTask extends Controller
         $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
         if ($user) {
             $task = Tasks::updateOrCreate([
-                'id' => $cardId,
+                'id' => (int) $cardId,
                 'user_id' => $user->id,
             ], [
                 
@@ -76,7 +76,7 @@ class CreateTask extends Controller
 
         if ($user) {
             $task = Tasks::updateOrCreate([
-                'id' => $cardId,
+                'id' => (int) $cardId,
             ], [
                 'priority' => $data['priority'],
                 'ticket' => $data['ticket'],
