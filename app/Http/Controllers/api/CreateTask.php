@@ -76,8 +76,9 @@ class CreateTask extends Controller
 
         if ($user) {
             $task = Tasks::updateOrCreate([
-                'ticket' => $data['ticket'],
+                'id' => $data['task_id'],
             ], [
+                'ticket' => $data['ticket'],
                 'priority' => $data['priority'],
                 
             ]);
