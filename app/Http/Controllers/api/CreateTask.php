@@ -45,6 +45,7 @@ class CreateTask extends Controller
 
         // $category = Category::where('name', $data['category'])->first();
         // $cardId = $data['user']['message']['cardsV2'][0]['cardId'];
+
         if ($user) {
             $task = Tasks::updateOrCreate([
                 'id' => $data['id'],
@@ -53,10 +54,11 @@ class CreateTask extends Controller
                 'categorie_id' => $data['catid'],
                 'status' => 0,
             ]);
-            return response()->json([
-                'id' => $task->id,
-            ], 200);
+
         }
+        return response()->json([
+            'id' => $task->id,
+        ], 200);
     }
 
     public function priority(Request $request)
