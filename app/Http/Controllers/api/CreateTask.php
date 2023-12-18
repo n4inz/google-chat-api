@@ -40,7 +40,7 @@ class CreateTask extends Controller
     public function category(Request $request)
     {
         $data = $request->all();
-        $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
+        // $user = User::where('email', $data['user']['user']['email'] ?? 0)->first('id');
         $user = User::where('email', $data['email'] ?? 0)->first('id');
 
         // $category = Category::where('name', $data['category'])->first();
