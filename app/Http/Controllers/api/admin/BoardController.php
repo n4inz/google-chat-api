@@ -29,5 +29,5 @@ class BoardController extends Controller
          'on_progress' => $taskProgress,
          'resolved' => $taskResolved,
      ]);
-   } 
+   }
 }
